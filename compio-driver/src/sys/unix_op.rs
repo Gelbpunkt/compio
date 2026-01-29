@@ -139,12 +139,12 @@ pub(crate) const fn statx_to_stat(statx: Statx) -> Stat {
     stat.st_size = statx.stx_size as _;
     stat.st_blksize = statx.stx_blksize as _;
     stat.st_blocks = statx.stx_blocks as _;
-    stat.st_atime = statx.stx_atime.tv_sec as _;
-    stat.st_atime_nsec = statx.stx_atime.tv_nsec as _;
-    stat.st_mtime = statx.stx_mtime.tv_sec as _;
-    stat.st_mtime_nsec = statx.stx_mtime.tv_nsec as _;
-    stat.st_ctime = statx.stx_btime.tv_sec as _;
-    stat.st_ctime_nsec = statx.stx_btime.tv_nsec as _;
+    stat.st_atim.tv_sec = statx.stx_atime.tv_sec as _;
+    stat.st_atim.tv_nsec = statx.stx_atime.tv_nsec as _;
+    stat.st_mtim.tv_sec = statx.stx_mtime.tv_sec as _;
+    stat.st_mtim.tv_nsec = statx.stx_mtime.tv_nsec as _;
+    stat.st_ctim.tv_sec = statx.stx_btime.tv_sec as _;
+    stat.st_ctim.tv_nsec = statx.stx_btime.tv_nsec as _;
     stat
 }
 

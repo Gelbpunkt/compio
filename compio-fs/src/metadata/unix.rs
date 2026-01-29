@@ -70,22 +70,22 @@ impl Metadata {
 
     pub fn modified(&self) -> io::Result<SystemTime> {
         Ok(SystemTime::UNIX_EPOCH
-            + Duration::from_secs(self.0.st_mtime as _)
-            + Duration::from_nanos(self.0.st_mtime_nsec as _))
+            + Duration::from_secs(self.0.st_mtim.tv_sec as _)
+            + Duration::from_nanos(self.0.st_mtim.tv_nsec as _))
     }
 
     pub fn accessed(&self) -> io::Result<SystemTime> {
         Ok(SystemTime::UNIX_EPOCH
-            + Duration::from_secs(self.0.st_atime as _)
-            + Duration::from_nanos(self.0.st_atime_nsec as _))
+            + Duration::from_secs(self.0.st_atim.tv_sec as _)
+            + Duration::from_nanos(self.0.st_atim.tv_nsec as _))
     }
 
     #[cfg(not(noctime))]
     pub fn created(&self) -> io::Result<SystemTime> {
         // We've assigned btime field to ctime.
         Ok(SystemTime::UNIX_EPOCH
-            + Duration::from_secs(self.0.st_ctime as _)
-            + Duration::from_nanos(self.0.st_ctime_nsec as _))
+            + Duration::from_secs(self.0.st_ctim.tv_sec as _)
+            + Duration::from_nanos(self.0.st_ctim.tv_nsec as _))
     }
 
     #[cfg(noctime)]
@@ -130,27 +130,27 @@ impl MetadataExt for Metadata {
     }
 
     fn atime(&self) -> i64 {
-        self.0.st_atime as _
+        self.0.st_atim.tv_sec as _
     }
 
     fn atime_nsec(&self) -> i64 {
-        self.0.st_atime_nsec as _
+        self.0.st_atim.tv_nsec as _
     }
 
     fn mtime(&self) -> i64 {
-        self.0.st_mtime as _
+        self.0.st_mtim.tv_sec as _
     }
 
     fn mtime_nsec(&self) -> i64 {
-        self.0.st_mtime_nsec as _
+        self.0.st_mtim.tv_nsec as _
     }
 
     fn ctime(&self) -> i64 {
-        self.0.st_ctime as _
+        self.0.st_ctim.tv_sec as _
     }
 
     fn ctime_nsec(&self) -> i64 {
-        self.0.st_ctime_nsec as _
+        self.0.st_ctim.tv_nsec as _
     }
 
     fn blksize(&self) -> u64 {
